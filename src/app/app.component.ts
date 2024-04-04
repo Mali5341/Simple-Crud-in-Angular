@@ -8,3 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Simple-Crud';
 }
+
+
+// CAMEL CASE - add-user
+// KABAB CASE - add-user-details
+// SNAKE CASE - add_user_details
+// ----- CASE - AddUser

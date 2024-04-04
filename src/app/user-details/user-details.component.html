@@ -1,0 +1,66 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse menu" id="navbarNav"[ngClass]="{'show': isExpanded}">
+   
+    <div class="m-2 ">
+      <button class="btn btn-primary">Home</button>
+   </div>
+    <div class="m-2 ">
+      <button class="btn btn-primary" >Contact Us</button>
+   </div>
+    <div class="m-2 ">
+      <button class="btn btn-primary" >Login</button>
+   </div>
+    <div class="m-2 ">
+      <button class="btn btn-primary" routerLink="/add-user">Add User</button>
+    </div>
+ </div>
+</nav>
+
+
+<table class="table">
+  <thead style="background-color: darkblue; color: white;">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Position</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Image</th>
+      <th scope="col">Button</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="EmployeesData.length < 1">
+      <td colspan="6">There is no Data</td>
+    </tr>
+    <tr *ngFor="let data of EmployeesData | paginate: { itemsPerPage: 5, currentPage: page, totalItems: total, id: 'foo' }">
+      <th scope="row">{{ data.id }}</th>
+      <td>{{ data.name }}</td>
+      <td>{{ data.position }}</td>
+      <td>{{ data.salary }}</td>
+      <td><img [src]="'http://localhost:8080/' + data.profilePic" alt="Employee Image" id="img"></td>
+      <td style="display: flex; align-items: center;">
+        <div style="margin-right: 19px;">
+          <i class="fa-solid fa-pen-to-square" mr-3 (click)="selectEmployeeToUpdateData(data._id)"></i>
+        </div>
+        <div>
+          <i class="fa-solid fa-trash" m-2 p-3 (click)="DeleteEmployeeFromEmployeesRecord(data._id, $event)"></i>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<pagination-controls id="foo" (pageChange)="handlePageChange($event)">
+</pagination-controls>
+<!-- (pageBoundsCorrection)="handlePageChange($event)" -->
+
+<!-- 
+previousLabel="Previous"
+nextLabel="Next"
+screenReaderPaginationLabel="Pagination"
+screenReaderPageLabel="page"
+screenReaderCurrentLabel="You're on page" -->
