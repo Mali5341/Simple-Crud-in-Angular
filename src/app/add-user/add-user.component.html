@@ -1,7 +1,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container mt-4">
-  <h2>{{formTitle}}  Add New User</h2>
+  <h2>{{formTitle}}</h2>
   <form [formGroup]="postEmployeeData" >
     <div class="form-group">
       <label for="name">Name:</label>
@@ -19,8 +19,8 @@
       <span *ngIf="salary?.invalid && salary?.touched">Enter Valid</span>
     </div>
     <div>
-      <label for="image">Image</label>
-      <input type="file" (change)="onFileSelected($event)" id="image" formArrayName="profilePic">
+      <label for="image" style="padding-right: 9px;">Upload Profile:</label>
+      <input type="file" (change)="onFileSelected($event)" id="image" formArrayName="profilePic" >
       <div  *ngIf=" profilePic && profilePic.invalid && profilePic.touched">Enter Img</div>
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="postEmployeeData.invalid" *ngIf="!editMode" (click)="postEmployeeDataToBackendFromAddUserForm(postEmployeeData.value)">Add Employee</button>

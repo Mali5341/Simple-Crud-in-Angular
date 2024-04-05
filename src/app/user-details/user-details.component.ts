@@ -2,16 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserDataService } from '../service/user-data.service';
 // import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { Output } from '@angular/core';
+// @Output() testVariable = new EventEmitter();
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss']
 })
 
-
 export class UserDetailsComponent implements OnInit {
-
   EmployeesData: any = [];
   itemPerPage: any;
   pageSize: number=10;
@@ -29,13 +28,11 @@ export class UserDetailsComponent implements OnInit {
     this.service.hitApiToGetEmployeesDetails('?pageSize=100').subscribe((data: any) => {
       this.EmployeesData = data.employees;
       console.log(data);
-      // this.page = data.currentPage
-      // this.pageSize = data.pageSize
-      // this.total = data.totalCount
+      
     });
   };
   DeleteEmployeeFromEmployeesRecord(id: any, $event: any) {
-    const confirmDelete = window.confirm('Are you sure you want to delete this employee?');
+    const confirmDelete = confirm('Are you sure you want to delete this employee?');
     if (confirmDelete) {
 
       this.service.hitApiToDeleteEmployee(id).subscribe((result) => {
@@ -44,20 +41,12 @@ export class UserDetailsComponent implements OnInit {
       })
       $event.target.innerText = "Deleting..."
     }
-
   }
-
-
   selectEmployeeToUpdateData(id: any) {
     this.router.navigate(['/edit-user', id]);
-
   }
-
-
-
   handlePageChange(event: number): void {
-    this.page = event;
-    // this.getAllEmployeesRecordFromBackend();
+    this.page = event;  
   }
   toggleNavbar() {
     this.isExpanded = !this.isExpanded;

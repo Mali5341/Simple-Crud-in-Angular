@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { UserDataService } from '../service/user-data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,31 +9,39 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
-
-  formTitle: any;
+  
+  formTitle!: string;
   selectedFile: File | null = null;
   employee: any;
   empId!: string;
   editMode: boolean = false;
 
-  // [formGroup] ='postEmployeeData' it use for the validation of input fields
+
   postEmployeeData: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     position: new FormControl('', [Validators.required]),
     salary: new FormControl('', Validators.required),
     file: new FormControl(''),
     profilePic: new FormControl('')
+   
   });
   constructor(
     private DataFromService: UserDataService,
-    private router: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
     private route: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.getEmployeeToUpdateRecord()
-  }
-
+    ) { 
+    }
+  
+    
+    ngOnInit(): void {
+      this.getEmployeeToUpdateRecord()
+      this.activeRoute.data.subscribe((res: any)=>{
+        this.formTitle = res.pageHeading; 
+         
+      })
+    }
+    // @import() updateEmployee;
+    
   get name() {
     return this.postEmployeeData.get('name');
   }
@@ -51,26 +59,20 @@ export class AddUserComponent implements OnInit {
   
   onFileSelected(event: any) {
     const selectedFile: File = event.target.files[0];
-
     const formData = new FormData();
     formData.append('file', selectedFile);
-
-
     this.DataFromService.hitApiToUploadImages(formData).subscribe(
       (result: any) => {
-        console.log('Upload success. Filename:', result.filename); 
-        console.log('Form Data:', this.postEmployeeData); 
-        console.log('Profile Pic Control:', this.postEmployeeData.get('profilePic')); 
+        // console.log('Upload success. Filename:', result.filename); 
+        // console.log('Form Data:', this.postEmployeeData); 
+        // console.log('Profile Pic Control:', this.postEmployeeData.get('profilePic')); 
         if (this.postEmployeeData && this.postEmployeeData.get('profilePic')) {
           this.postEmployeeData.patchValue({ profilePic: result.filename });
           console.log('Profile Pic Value Set Successfully'); 
-        } else {
-            console.error('Error: Form data or profilePic control not found.'); 
         }
+        
       },
-      (error) => {
-        console.error('Error:', error);
-      }
+     
     );
 }
 
@@ -83,7 +85,7 @@ export class AddUserComponent implements OnInit {
   }
 
   getEmployeeToUpdateRecord() {
-    this.empId = this.router.snapshot.params['id'];
+    this.empId = this.activeRoute.snapshot.params['id'];
     if (this.empId) {
       this.editMode = true;
       this.DataFromService.hitApiToGetSingleEmployeeForUpdate(this.empId).subscribe((data) => {

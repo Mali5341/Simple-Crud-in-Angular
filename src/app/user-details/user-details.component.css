@@ -1,6 +1,30 @@
-td {
+i {
   font-size: 22px;
   color: rgb(99, 98, 98);
   font-weight: bold;
   text-align: center;
+}
+
+#img {
+  width: 70%;
+  height: 98px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+i {
+  margin-left: 9px;
+  padding-left: 9px;
+}
+
+.hidden {
+  display: none;
+}
+
+.fa-pen-to-square {
+  color: green;
+}
+
+.fa-trash {
+  color: red;
 }/*# sourceMappingURL=user-details.component.css.map */

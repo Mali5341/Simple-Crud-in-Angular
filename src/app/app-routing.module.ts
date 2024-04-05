@@ -12,10 +12,20 @@ const routes: Routes = [
   {
     path:'add-user',
     component:AddUserComponent,
+    data: {
+      pageHeading: 'Add New Employee',
+      showHeader: false,
+      showFooter: false,
+    },
+    title: 'Add User'
   },
   {
     path:'edit-user/:id',
     component:AddUserComponent,
+    data: {
+      pageHeading: 'Edit User'
+    },
+    title: "Edit Employee"
   },
   {
     path:"user-details", 

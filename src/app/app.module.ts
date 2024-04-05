@@ -9,11 +9,18 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { ButtonComponent } from './shared/particles/button/button.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     UserDetailsComponent,
-    AddUserComponent
+    AddUserComponent,
+    HeaderComponent,
+    FooterComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

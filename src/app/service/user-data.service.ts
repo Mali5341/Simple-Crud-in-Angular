@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class UserDataService {
-  url = 'http://localhost:8080/employees'
-  imgUrl = 'http://localhost:8080/upload'
+  url = 'http://192.168.100.14:8080/employees'
+  imgUrl = 'http://192.168.100.14:8080/upload'
   constructor(private http: HttpClient) { }
 
   hitApiToGetEmployeesDetails(query: string) {
